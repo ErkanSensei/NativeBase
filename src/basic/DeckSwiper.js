@@ -143,6 +143,9 @@ class DeckSwiper extends Component {
 			onMoveShouldSetPanResponderCapture: (evt, gestureState) => Math.abs(gestureState.dx) > 5,
 
 			onPanResponderGrant: (e, gestureState) => {
+				if (this.props.disableSwipe) {
+					return false;
+				}
 				this.state.pan.setOffset({
 					x: this.state.pan.x._value,
 					y: this.state.pan.y._value,
@@ -151,6 +154,9 @@ class DeckSwiper extends Component {
 			},
 
 			onPanResponderMove: (e, gestureState) => {
+				if (this.props.disableSwipe) {
+					return false;
+				}
 				if (gestureState.dx > 20) {
 					if (this.props.onSwiping) this.props.onSwiping("right", gestureState.dx);
 				} else if (gestureState.dx < -20) {
@@ -170,6 +176,9 @@ class DeckSwiper extends Component {
 			},
 
 			onPanResponderRelease: (e, { vx, vy }) => {
+				if (this.props.disableSwipe) {
+					return false;
+				}
 				if (this.props.onSwiping) this.props.onSwiping(null);
 				let velocity;
 
